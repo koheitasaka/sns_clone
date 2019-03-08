@@ -1,0 +1,17 @@
+<h1><%= @user.username %></h1>
+
+<h4>Follow:</h4>
+<h4>Follower:</h4>
+
+<div>
+	<h4>Tweets</h4>
+	<ul>
+		<% @user.tweets.each do |tweet| %>
+		<li>
+			<%= link_to"#{tweet.body}", tweet_path(tweet.id) %>
+			<%= tweet.created_at %>
+		</li>
+		<% end %>
+	</ul>
+		
+</div>
