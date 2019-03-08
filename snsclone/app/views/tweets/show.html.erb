@@ -1,0 +1,38 @@
+<h1>Tweet</h1>
+
+<div>
+	<p><%= @tweet.body %></p>
+	<p><%= @tweet.created_at %></p>
+	<p>Likes:<%= @tweet.likes.count %></p>
+</div>
+
+
+	<% if current_user.already_liked?(@tweet) %>
+	  <%= button_to 'Liked', tweet_like_path(@tweet), method: :delete %>
+	<% else %>
+	  <%= button_to 'Like', tweet_likes_path(@tweet) %>
+	<% end %>
+
+	<div>
+		<%= form_for :tweet, url: tweets_path do |f| %>
+		<%= f.hidden_field :tweet_id, :value => @tweet.id  %>
+		<p>
+			<%= f.text_area :body, 
+			placeholder: "Send reply",
+			class: "form" 
+	   		%>
+		</p>
+		<p><%= f.submit %></p>
+		<% end %>
+	</div>
+
+
+<div>
+	<% @tweet.replies.each do |reply| %>
+		<p>
+		    <%= link_to"#{reply.body}", tweet_path(reply.id) %>
+			<%= reply.created_at %>		
+		</p>
+	<% end %>
+</div>
+

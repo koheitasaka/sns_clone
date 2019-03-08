@@ -1,0 +1,12 @@
+<h1>New Tweet</h1>
+<div>
+	<%= form_for :tweet, url: tweets_path do |f| %>
+	<p>
+		<%= f.text_area :body, 
+		placeholder: "How are you doing now?",
+		class: "form" 
+   		%>
+	</p>
+	<p><%= f.submit %></p>
+	<% end %>
+</div>
