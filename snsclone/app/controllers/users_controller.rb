@@ -3,13 +3,18 @@ class UsersController < ApplicationController
 		@user = User.find_by(id: params[:id])	
 	end
 
+	def edit
+		@user = User.find_by(id: params[:id])	
+	end
+
 	def update
-		@user = User.find(id: params[:id])
-		@user.update(user_params)	
+		@user = User.find_by(id: params[:id])
+		@user.update(user_params)
+		redirect_to user_path
 	end
 	
 	private
 		def user_params
-			params.require(:user).permit(:username)
+			params.require(:user).permit(:username,:bio)
 		end
 end

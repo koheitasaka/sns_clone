@@ -5,7 +5,6 @@
 	<p><%= link_to"#{tweet.user.username}", user_path(tweet.user.id) %></p>
 	<p>
 		<%= link_to"#{tweet.body}", tweet_path(tweet.id) %>
-		<%= link_to"#{tweet.user.id}", tweet_path(tweet.id) %>
 		<% if user_signed_in? %>
 		<% if current_user.id == tweet.user.id %>
 		<%= link_to "Delete",
