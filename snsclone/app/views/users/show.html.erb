@@ -1,4 +1,11 @@
 <h1><%= @user.username %></h1>
+<h4>Profile</h4>
+<p>
+	<%= @user.bio %>
+	<% if @user == current_user %>
+		<%= link_to"[Edit]", edit_user_path(@user) %>
+	<% end %>
+</p>
 
 <h4>Follow:</h4>
 <h4>Follower:</h4>
