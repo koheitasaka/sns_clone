@@ -1,0 +1,2 @@
+class TweetImageUploader < Shrine
+end
