@@ -1,4 +1,14 @@
 <h1><%= @user.username %></h1>
+<div>
+	<% unless current_user == @user %>
+	  <% if current_user.already_followed?(@user) %>
+	    <%= button_to 'Remove', user_relationship_path(@user), method: :delete %>
+	  <% else %>
+		<%= button_to 'Follow', user_relationships_path(@user) %>
+	  <% end %>
+	<% end %>		
+</div>
+
 <h4>Profile</h4>
 <p>
 	<%= @user.bio %>
@@ -7,8 +17,12 @@
 	<% end %>
 </p>
 
-<h4>Follow:</h4>
-<h4>Follower:</h4>
+<h4>
+	Follow:<%= @user.followings.count %>
+</h4>
+<h4>
+	Follower:<%= @user.followers.count %>
+</h4>
 
 <div>
 	<h4>Tweets</h4>
@@ -22,3 +36,4 @@
 	</ul>
 		
 </div>
+
