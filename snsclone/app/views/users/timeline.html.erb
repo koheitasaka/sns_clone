@@ -1,0 +1,10 @@
+<h1>Time Line</h1>
+<% @tweets.each do |tweet| %>
+<div>
+	<p><%= tweet.user.username %></p>
+	<p>
+		<%= tweet.body %>	
+	 	<%= tweet.created_at %>	
+	</p>
+</div>
+<% end %>

@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   resources :tweets do
     resources :likes, only: [:create, :destroy]
   end
-  resources :users
+  resources :users do
+  	resources :relationships
+  end
+  get "users/:id/timeline" => "users#timeline"
   root "tweets#index"
+  
 end

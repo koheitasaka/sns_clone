@@ -12,6 +12,12 @@ class UsersController < ApplicationController
 		@user.update(user_params)
 		redirect_to user_path
 	end
+
+	def timeline
+		@user = User.find(params[:id])
+		@following_ids = @user.followings.ids
+		@tweets = Tweet.where(user_id: @following_ids).or(Tweet.where(user_id: @user.id)).order(created_at: :desc)
+	end
 	
 	private
 		def user_params
