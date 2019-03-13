@@ -7,7 +7,15 @@
 		class: "form" 
     %>
 	</div>
-  
+ 	<div>
+ 		<%= f.radio_button :status, :open %>Public
+ 	</div>
+ 	<div>
+ 		<%= f.radio_button :status, :only_followers %>Followers
+ 	</div>
+ 	<div>
+ 		<%= f.radio_button :status, :only_me %>Private
+ 	</div>
 	<div>
       <%= f.label :image %>
       <%= f.file_field :image %>

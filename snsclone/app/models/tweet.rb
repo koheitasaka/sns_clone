@@ -5,5 +5,6 @@ class Tweet < ApplicationRecord
 	has_many :likes, dependent: :destroy
 	has_many :liked_users, through: :likes, source: :user
 	include TweetImageUploader[:image]
+	enum status: { open: 0, only_followers: 1, only_me: 2 }
 end
 
