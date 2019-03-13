@@ -2,20 +2,24 @@
 <% @tweets.each do |tweet| %>
 <div>
 	<% unless tweet.tweet_id %>
-	<p><%= link_to"#{tweet.user.username}", user_path(tweet.user.id) %></p>
-	<p>
-		<%= link_to"#{tweet.body}", tweet_path(tweet.id) %>
-		<% if user_signed_in? %>
-		<% if current_user.id == tweet.user.id %>
-		<%= link_to "Delete",
-		tweet_path(tweet.id),
-		method: :delete,
-		data: {confirm:'Sure?'}
-		%>	
+		<% if tweet.open? %>
+			<p>
+				<%= link_to"#{tweet.user.username}", user_path(tweet.user.id) %>
+			</p>
+			<p>
+				<%= link_to"#{tweet.body}", tweet_path(tweet.id) %>
+				<% if user_signed_in? %>
+				<% if current_user.id == tweet.user.id %>
+				<%= link_to "Delete",
+				tweet_path(tweet.id),
+				method: :delete,
+				data: {confirm:'Sure?'}
+				%>	
+				<% end %>
+				<% end %>
+				<%= tweet.created_at %>
+			</p>
 		<% end %>
-		<% end %>
-		<%= tweet.created_at %>
-	</p>
 	<% end %>
 </div>
 <% end %>

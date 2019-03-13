@@ -28,10 +28,19 @@
 	<h4>Tweets</h4>
 	<ul>
 		<% @user.tweets.each do |tweet| %>
-		<li>
-			<%= link_to"#{tweet.body}", tweet_path(tweet.id) %>
-			<%= tweet.created_at %>
-		</li>
+			<% if @user == current_user %>
+				<li>
+					<%= link_to"#{tweet.body}", tweet_path(tweet.id) %>
+					<%= tweet.created_at %>
+				</li>
+			<% elsif @user.followers.include?(current_user) %>
+				<% unless tweet.only_me? %>
+					<li>
+						<%= link_to"#{tweet.body}", tweet_path(tweet.id) %>
+						<%= tweet.created_at %>
+					</li>
+				<% end %>
+			<% end %>
 		<% end %>
 	</ul>
 		
