@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 	end
 
 	def timeline
-		@user = User.find(params[:id])
+		@user = User.find(current_user.id)
 		@following_ids = @user.followings.ids
 		@tweets = Tweet.where(user_id: @following_ids).or(Tweet.where(user_id: @user.id)).order(created_at: :desc)
 	end
