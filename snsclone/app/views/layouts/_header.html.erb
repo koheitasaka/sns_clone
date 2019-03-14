@@ -15,6 +15,12 @@
 	<li>
 		<%= link_to 'Time LIne', '/users/:id/timeline' %>
 	</li>
+	<li>
+		<%= link_to 'Like Notification', '/users/:id/like_notification' %>
+	</li>
+	<li>
+		<%= link_to 'Reply Notification', '/users/:id/reply_notification' %>
+	</li>
 		<% if current_user.try(:admin?) %>
 			<li>
 				<%= link_to 'Admin', '/admin' %>

@@ -18,6 +18,17 @@ class UsersController < ApplicationController
 		@following_ids = @user.followings.ids
 		@tweets = Tweet.where(user_id: @following_ids).or(Tweet.where(user_id: @user.id)).order(created_at: :desc)
 	end
+
+	def like_notification
+		@user = User.find(current_user.id)
+		@tweets = Tweet.where(user_id: @user.id)
+		@likes = Like.where(tweet_id: @tweets.ids).order(created_at: :desc) #Likeから、@userのtweetの内、likeされたtweetのidがはいったレコードを取得
+	end
+
+	def reply_notification
+		@user = User.find(current_user.id)
+		@tweets = Tweet.where(tweet_id: @user.tweets.ids)
+	end
 	
 	private
 		def user_params

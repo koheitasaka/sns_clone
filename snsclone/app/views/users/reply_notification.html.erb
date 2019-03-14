@@ -1,0 +1,11 @@
+<h1>Reply_notification</h1>
+<div>
+	<% @tweets.each do |tweet| %>
+		<% unless tweet.user == @user %>
+			<p><%= tweet.created_at %></p>
+			<p><%= "#{tweet.user.username} replyied your tweet" %></p>
+			<p><%= link_to"#{tweet.original.body}", tweet_path(tweet.original.id) %></p>	
+		<% end %>
+	<% end %>
+</div>
+
