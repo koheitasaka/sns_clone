@@ -9,6 +9,9 @@
 	<div class="field">
         <%= f.label :username %><br />
         <%= f.text_field :username, autofocus: true %>
+        <% if @user.errors.messages[:username].any? %>
+			<%= @user.errors.messages[:username][0] %>
+		<% end %>
     </div>
 	<p><%= f.submit %></p>
 	<% end %>
