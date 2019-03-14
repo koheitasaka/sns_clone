@@ -1,0 +1,11 @@
+<h1>Like Notifications</h1>
+
+<div>
+	<% @likes.each do |like| %>
+		<% unless like.user == @user %>
+			<p><%= like.created_at %></p>
+			<p><%= "#{like.user.username} liked your tweet" %></p>
+			<p><%= link_to"#{like.tweet.body}", tweet_path(like.tweet.id) %></p>	
+		<% end %>
+	<% end %>
+</div>
