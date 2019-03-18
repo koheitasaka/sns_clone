@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_13_104627) do
+ActiveRecord::Schema.define(version: 2019_03_18_071938) do
 
   create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "tweet_id"
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 2019_03_13_104627) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "tweet_id"
-    t.text "image_data"
     t.integer "status", default: 0
+    t.json "images"
     t.index ["tweet_id"], name: "index_tweets_on_tweet_id"
     t.index ["user_id"], name: "index_tweets_on_user_id"
   end

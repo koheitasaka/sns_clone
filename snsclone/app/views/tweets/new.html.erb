@@ -1,6 +1,6 @@
 <h1>New Tweet</h1>
 <div>
-	<%= form_for :tweet, url: tweets_path do |f| %>
+	<%= form_with(model: Tweet.new, multipart: true, local: true) do |f| %>
 	<div>
 		<% if @tweet.errors.messages[:body].any? %>
 			<%= @tweet.errors.messages[:body][0] %>
@@ -8,7 +8,7 @@
 		<%= f.text_area :body, 
 		placeholder: "How are you doing now?",
 		class: "form" 
-    %>
+        %>
 	</div>
  	<div>
  		<%= f.radio_button :status, :open %>Public
@@ -20,11 +20,13 @@
  		<%= f.radio_button :status, :only_me %>Private
  	</div>
 	<div>
-      <%= f.label :image %>
-      <%= f.file_field :image %>
+      <%= f.label :images %>
+      <%= f.file_field :images, multiple: true %>
     </div>
 	<p><%= f.submit %></p>
 	<% end %>
 </div>
 
 
+
+ 
