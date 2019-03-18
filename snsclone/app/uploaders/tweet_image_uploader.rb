@@ -1,2 +1,0 @@
-class TweetImageUploader < Shrine
-end
