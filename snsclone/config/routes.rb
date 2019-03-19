@@ -5,8 +5,11 @@ Rails.application.routes.draw do
     resources :likes, only: [:create, :destroy]
   end
   resources :users do
-  	resources :relationships
+    resources :relationships
+    resources :account_suspensions
   end
+
+
   get "users/:id/timeline" => "users#timeline"
   get "users/:id/like_notification" => "users#like_notification"
   get "users/:id/reply_notification" => "users#reply_notification"

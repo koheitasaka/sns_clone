@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_18_071938) do
+ActiveRecord::Schema.define(version: 2019_03_19_014254) do
+
+  create_table "account_suspensions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "report_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_account_suspensions_on_report_id"
+    t.index ["user_id", "report_id"], name: "index_account_suspensions_on_user_id_and_report_id", unique: true
+    t.index ["user_id"], name: "index_account_suspensions_on_user_id"
+  end
 
   create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "tweet_id"
@@ -54,10 +64,13 @@ ActiveRecord::Schema.define(version: 2019_03_18_071938) do
     t.string "username"
     t.text "bio"
     t.boolean "admin", default: false
+    t.integer "user_status", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "account_suspensions", "users"
+  add_foreign_key "account_suspensions", "users", column: "report_id"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
   add_foreign_key "relationships", "users"

@@ -1,5 +1,4 @@
 <h1>Like Notifications</h1>
-
 <div>
 	<% @likes.each do |like| %>
 		<% unless like.user == @user %>
@@ -9,3 +8,4 @@
 		<% end %>
 	<% end %>
 </div>
+<% else %>

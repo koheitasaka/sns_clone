@@ -6,6 +6,12 @@
 	  <% else %>
 		<%= button_to 'Follow', user_relationships_path(@user) %>
 	  <% end %>
+
+	  <% if current_user.already_reported?(@user) %>
+	    <%= button_to 'Cancell', user_account_suspension_path(@user), method: :delete %>
+	  <% else %>
+		<%= button_to 'Report', user_account_suspensions_path(@user) %>
+	  <% end %>
 	<% end %>		
 </div>
 
@@ -43,6 +49,4 @@
 			<% end %>
 		<% end %>
 	</ul>
-		
 </div>
-
