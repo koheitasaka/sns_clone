@@ -22,4 +22,18 @@ class User < ApplicationRecord
   def already_followed?(other_user)
     self.relationships.exists?(follow_id: other_user.id)
   end
+
+  enum user_status: { normal: 0, suspended: 1 }
+  
+  has_many :account_suspensions
+  has_many :reported_users, through: :account_suspensions, source: :report
+  has_many :versus_account_suspensions, class_name: 'AccountSuspension', foreign_key: 'report_id'
+  has_many :reporters, through: :versus_account_suspensions, source: :user
+
+  validates :user_status, presence: true
+
+  def already_reported?(other_user)
+    self.account_suspensions.exists?(report_id: other_user.id)
+  end
+  
 end
