@@ -1,10 +1,13 @@
 <% if user_signed_in? == false %>
 	<%= "You have to log in or sign up!" %>
 <% elsif current_user.user_status == "normal" %>
+	<h1>Tweet</h1>
 	<div>
 		<p><%= @tweet.body %></p>
 		<% @tweet.images.each do |image| %>
-			<%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
+			<p>
+				<%= image_tag(image.url) unless image.file.nil? %>
+			</p>
 		<% end %>
 		<p><%= @tweet.created_at %></p>
 		<p>Likes:<%= @tweet.likes.count %></p>
