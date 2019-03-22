@@ -13,7 +13,7 @@ class TweetsController < ApplicationController
 		@tweet = Tweet.new(tweet_params)
 		@tweet.user_id = current_user.id 
 		if @tweet.save
-	    	redirect_to tweets_path
+	    	redirect_to root_path
 	    else
 	    	render "new"
 	    end
@@ -21,7 +21,7 @@ class TweetsController < ApplicationController
 
 	def destroy
 		@tweet.destroy
-		redirect_to tweets_path
+		redirect_to root_path
 	end
 
 	def show

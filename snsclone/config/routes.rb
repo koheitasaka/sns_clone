@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   resources :tweets do
@@ -10,9 +11,7 @@ Rails.application.routes.draw do
   end
 
 
-  get "users/:id/timeline" => "users#timeline"
+  root "users#timeline"
   get "users/:id/like_notification" => "users#like_notification"
   get "users/:id/reply_notification" => "users#reply_notification"
-  root "tweets#index"
-  
 end

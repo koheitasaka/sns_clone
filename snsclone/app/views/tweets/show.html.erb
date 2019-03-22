@@ -1,40 +1,45 @@
-<h1>Tweet</h1>
+<% if user_signed_in? == false %>
+	<%= "You have to log in or sign up!" %>
+<% elsif current_user.user_status == "normal" %>
+	<div>
+		<p><%= @tweet.body %></p>
+		<% @tweet.images.each do |image| %>
+			<%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
+		<% end %>
+		<p><%= @tweet.created_at %></p>
+		<p>Likes:<%= @tweet.likes.count %></p>
+	</div>
 
-<div>
-	<p><%= @tweet.body %></p>
-	<% @tweet.images.each do |image| %>
-		<%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
-	<% end %>
-	<p><%= @tweet.created_at %></p>
-	<p>Likes:<%= @tweet.likes.count %></p>
-</div>
-
-
-	<% if current_user.already_liked?(@tweet) %>
-	  <%= button_to 'Liked', tweet_like_path(@tweet), method: :delete %>
-	<% else %>
-	  <%= button_to 'Like', tweet_likes_path(@tweet) %>
-	<% end %>
+	<div>
+		<% if current_user.already_liked?(@tweet) %>
+	 		<%= button_to 'Liked', tweet_like_path(@tweet), method: :delete %>
+		<% else %>
+	  		<%= button_to 'Like', tweet_likes_path(@tweet) %>
+		<% end %>	
+	</div>
+	
 
 	<div>
 		<%= form_for :tweet, url: tweets_path do |f| %>
-		<%= f.hidden_field :tweet_id, :value => @tweet.id  %>
+			<%= f.hidden_field :tweet_id, :value => @tweet.id  %>
 		<p>
 			<%= f.text_area :body, 
-			placeholder: "Send reply",
-			class: "form" 
-	   		%>
+			placeholder: "Send reply"
+			%>
 		</p>
 		<p><%= f.submit %></p>
 		<% end %>
 	</div>
 
 
-<div>
-	<% @tweet.replies.each do |reply| %>
-		<p>
-		    <%= link_to"#{reply.body}", tweet_path(reply.id) %>
-			<%= reply.created_at %>		
-		</p>
-	<% end %>
-</div>
+	<div>
+		<% @tweet.replies.each do |reply| %>
+			<p>
+			    <%= link_to"#{reply.body}", tweet_path(reply.id) %>
+				<%= reply.created_at %>		
+			</p>
+		<% end %>
+	</div>
+<% else %>
+	<h2>Your account is suspended!</h2>
+<% end %>
