@@ -1,25 +1,17 @@
 <h1>Time Line</h1>
 <% if current_user.user_status == "normal" %>
-	<% @tweets.each do |tweet| %>
-	<div>
-		<% unless tweet.tweet_id %>
-		<% if tweet.open? && tweet.user.user_status == "normal" %>
-		<p><%= link_to"#{tweet.user.username}", user_path(tweet.user.id) %></p>
-		<p>
-			<%= link_to"#{tweet.body}", tweet_path(tweet.id) %>
-			<% if current_user.id == tweet.user.id %>
-			<%= link_to "Delete",
-			tweet_path(tweet.id),
-			method: :delete,
-			data: {confirm:'Sure?'}
-			%>
-			<% end %>
-			<%= tweet.created_at %>
-		</p>
+	<% @displayed_tweets.each do |tweet| %>
+		<% unless tweet.tweet_id? || tweet.user.user_status == "suspended" %>
+			<p><%= link_to"#{tweet.user.username}", user_path(tweet.user.id) %></p>
+			<p><%= link_to"#{tweet.body}", tweet_path(tweet.id) %><br>
+				<% tweet.images.each do |image| %>
+　　　		  		<%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
+				<% end %>
+		    </p>
 		<% end %>
-		<% end %>
-	</div>
 	<% end %>
 <% else %>
 	<h2>Your account is suspended!</h2>
 <% end %>
+
+

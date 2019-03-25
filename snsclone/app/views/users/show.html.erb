@@ -1,6 +1,7 @@
 <% if user_signed_in? == false %>
 	<%= "You have to log in or sign up!" %>
 <% elsif current_user.user_status == "normal" %>
+	<h1><%= @user.username %></h1>
 	<div>
 		<% unless current_user == @user %>
 		  <% if current_user.already_followed?(@user) %>
@@ -34,23 +35,44 @@
 
 	<div>
 		<h4>Tweets</h4>
-		<ul>
-			<% @user.tweets.each do |tweet| %>
-       			<% if @user == current_user %>
-				    <li>
-						<%= link_to"#{tweet.body}", tweet_path(tweet.id) %>
-						<%= tweet.created_at %>
-					</li>
-			    <% elsif @user.followers.include?(current_user) %>
+		<% @tweets.each do |tweet| %>
+			<% unless @user == current_user %>
+				<% if @user.followers.include?(current_user) %>
 					<% unless tweet.only_me? %>
-						<li>
-							<%= link_to"#{tweet.body}", tweet_path(tweet.id) %>
+						<p>
+							<%= link_to"#{tweet.body}", tweet_path(tweet.id) %><br>
+							<% tweet.images.each do |image| %>
+　　　		  					<%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
+							<% end %>
 							<%= tweet.created_at %>
-						</li>
+						</p>
+					<% end %>	
+				<% else %>
+					<% if tweet.open? %>
+						<p>
+							<%= link_to"#{tweet.body}", tweet_path(tweet.id) %><br>
+							<% tweet.images.each do |image| %>
+　　　		  					<%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
+							<% end %>
+							<%= tweet.created_at %>
+						</p>
+					<% end %>	
+				<% end %>	
+			<% else %>
+				<p>
+					<%= link_to"#{tweet.body}", tweet_path(tweet.id) %><br>
+					<% tweet.images.each do |image| %>
+　　　		  			<%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
 					<% end %>
-				<% end %>
-			<% end %>
-		</ul>
+					<%= link_to "Delete",
+						tweet_path(tweet.id),
+						method: :delete,
+						data: {confirm:'Sure?'}
+					%>	
+					<%= tweet.created_at %>
+				</p>		
+			<% end %>	
+		<% end %>
 	</div>
 <% else %>
 	<h2>Your account is suspended!</h2>
