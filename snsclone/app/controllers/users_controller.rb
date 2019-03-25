@@ -20,6 +20,9 @@ class UsersController < ApplicationController
 	def timeline
 		@following_ids = @user.followings.ids
 		@tweets = Tweet.where(user_id: @following_ids).or(Tweet.where(user_id: @user.id)).order(created_at: :desc)
+		@private_tweets = @tweets.where(status:"only_me")
+		@followings_private_tweets = @private_tweets.where(user_id: @following_ids)
+		@displayed_tweets = @tweets.where.not(id: @followings_private_tweets.ids)
 	end
 
 	def like_notification

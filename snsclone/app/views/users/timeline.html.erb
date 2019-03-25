@@ -1,41 +1,17 @@
 <h1>Time Line</h1>
 <% if current_user.user_status == "normal" %>
-	<% @tweets.each do |tweet| %>
-	<div>
-		<% unless tweet.tweet_id %>
-			<% unless tweet.only_me? && tweet.user.user_status == "suspended" %>
-				<% if @user.followers.include?(current_user) %>
-					<p><%= link_to"#{tweet.user.username}", user_path(tweet.user.id) %></p>
-					<p>
-						<%= link_to"#{tweet.body}", tweet_path(tweet.id) %>
-					<p>
-						<% tweet.images.each do |image| %>
-			　　　		  <%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
-						<% end %>
-					</p>
-				<% elsif tweet.open? %>
-					<p><%= link_to"#{tweet.user.username}", user_path(tweet.user.id) %></p>
-					<p>
-						<%= link_to"#{tweet.body}", tweet_path(tweet.id) %>
-					<p>
-						<% tweet.images.each do |image| %>
-			　　　		  <%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
-						<% end %>
-					</p>	
+	<% @displayed_tweets.each do |tweet| %>
+		<% unless tweet.tweet_id? || tweet.user.user_status == "suspended" %>
+			<p><%= link_to"#{tweet.user.username}", user_path(tweet.user.id) %></p>
+			<p><%= link_to"#{tweet.body}", tweet_path(tweet.id) %><br>
+				<% tweet.images.each do |image| %>
+　　　		  		<%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
 				<% end %>
-				<% if current_user.id == tweet.user.id %>
-				<%= link_to "Delete",
-				tweet_path(tweet.id),
-				method: :delete,
-				data: {confirm:'Sure?'}
-				%>
-				<% end %>
-				<%= tweet.created_at %>
-			</p>
-			<% end %>
+		    </p>
 		<% end %>
-	</div>
 	<% end %>
 <% else %>
 	<h2>Your account is suspended!</h2>
 <% end %>
+
+
