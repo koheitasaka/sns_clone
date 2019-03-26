@@ -21,7 +21,7 @@
 	 		<%= f.radio_button :status, :only_me %>Private
 	 	</div>
 		<div>
-	      <%= f.label :images %>
+	      <%= f.label :images, class: "images" %><br>
 	      <%= f.file_field :images, multiple: true %>
 	    </div>
 		<p><%= f.submit %></p>

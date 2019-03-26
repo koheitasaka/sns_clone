@@ -2,7 +2,7 @@
 	<%= "You have to log in or sign up!" %>
 <% elsif current_user.user_status == "normal" %>
 	<h1><%= @user.username %></h1>
-	<div>
+	<div class = "profile">
 		<% unless current_user == @user %>
 		  <% if current_user.already_followed?(@user) %>
 		    <%= button_to 'Remove', user_relationship_path(@user), method: :delete %>
@@ -15,51 +15,49 @@
 		  <% else %>
 			<%= button_to 'Report', user_account_suspensions_path(@user) %>
 		  <% end %>
-		<% end %>		
+		<% end %>	
+		<h4>Profile</h4>
+		<p>
+			<%= @user.bio %>
+			<% if @user == current_user %>
+				<%= link_to"[Edit]", edit_user_path(@user) %>
+			<% end %>
+		</p>
+
+		<h4>
+			Follow:<%= @user.followings.count %>
+		</h4>
+		<h4>
+			Follower:<%= @user.followers.count %>
+		</h4>
 	</div>
-
-	<h4>Profile</h4>
-	<p>
-		<%= @user.bio %>
-		<% if @user == current_user %>
-			<%= link_to"[Edit]", edit_user_path(@user) %>
-		<% end %>
-	</p>
-
-	<h4>
-		Follow:<%= @user.followings.count %>
-	</h4>
-	<h4>
-		Follower:<%= @user.followers.count %>
-	</h4>
-
 	<div>
 		<h4>Tweets</h4>
 		<% @tweets.each do |tweet| %>
 			<% unless @user == current_user %>
 				<% if @user.followers.include?(current_user) %>
 					<% unless tweet.only_me? %>
-						<p>
+						<div class = "user_tweet">
 							<%= link_to"#{tweet.body}", tweet_path(tweet.id) %><br>
 							<% tweet.images.each do |image| %>
 　　　		  					<%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
 							<% end %>
 							<%= tweet.created_at %>
-						</p>
+						</div>
 					<% end %>	
 				<% else %>
 					<% if tweet.open? %>
-						<p>
+						<div class = "user_tweet">
 							<%= link_to"#{tweet.body}", tweet_path(tweet.id) %><br>
 							<% tweet.images.each do |image| %>
 　　　		  					<%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
 							<% end %>
 							<%= tweet.created_at %>
-						</p>
+						</div>
 					<% end %>	
 				<% end %>	
 			<% else %>
-				<p>
+				<div class = "user_tweet">
 					<%= link_to"#{tweet.body}", tweet_path(tweet.id) %><br>
 					<% tweet.images.each do |image| %>
 　　　		  			<%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
@@ -70,7 +68,7 @@
 						data: {confirm:'Sure?'}
 					%>	
 					<%= tweet.created_at %>
-				</p>		
+				</div>		
 			<% end %>	
 		<% end %>
 	</div>
