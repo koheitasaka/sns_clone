@@ -2,12 +2,25 @@
 <% if current_user.user_status == "normal" %>
 	<% @displayed_tweets.each do |tweet| %>
 		<% unless tweet.tweet_id? || tweet.user.user_status == "suspended" %>
-			<p><%= link_to"#{tweet.user.username}", user_path(tweet.user.id) %></p>
-			<p><%= link_to"#{tweet.body}", tweet_path(tweet.id) %><br>
-				<% tweet.images.each do |image| %>
-　　　		  		<%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
-				<% end %>
-		    </p>
+			<div class = "tweet">
+				<p><%= link_to"#{tweet.user.username}", user_path(tweet.user.id) %></p>
+				<p>
+					<%= link_to"#{tweet.body}", tweet_path(tweet.id) %><br>
+					<% tweet.images.each do |image| %>
+　　　		  			<%= image_tag(image.url, size: "30x30") unless image.file.nil? %>
+					<% end %>
+		    	</p>
+		    	<p><%= tweet.created_at %></p>
+		    	<p>
+		    		<% if tweet.user == current_user %>
+		    			<%= link_to "Delete",
+						tweet_path(tweet.id),
+						method: :delete,
+						data: {confirm:'Sure?'}
+						%>	
+		    		<% end %>
+		    	</p>
+			</div>
 		<% end %>
 	<% end %>
 <% else %>

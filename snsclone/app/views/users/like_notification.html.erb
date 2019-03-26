@@ -1,6 +1,6 @@
 <h1>Like Notifications</h1>
 <% if current_user.user_status == "normal" %>
-<div>
+<div class = "notification">
 	<% @likes.each do |like| %>
 		<% unless like.user == @user %>
 			<p><%= like.created_at %></p>

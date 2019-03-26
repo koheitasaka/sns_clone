@@ -63,6 +63,7 @@ group :development do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-doc'
+  gem 'spring-commands-rspec'
 end
 
 group :test do
