@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_25_075400) do
+ActiveRecord::Schema.define(version: 2019_03_27_025349) do
 
   create_table "account_suspensions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2019_03_25_075400) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "username"
+    t.string "username", null: false
     t.text "bio"
     t.boolean "admin", default: false
     t.integer "user_status", default: 0

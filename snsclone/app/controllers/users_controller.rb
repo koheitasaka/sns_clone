@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
+	before_action :authenticate_user!
 	before_action :user_find, only: [:show, :edit, :update]
 	before_action :current_user_find, only: [:timeline, :like_notification, :reply_notification]
-
+	
 	def show
 		@tweets = Tweet.where(user_id: @user.id).order(created_at: :desc)
 	end

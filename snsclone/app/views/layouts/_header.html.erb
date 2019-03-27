@@ -1,40 +1,43 @@
 <ul>
 	<% if user_signed_in? %>
-	<% unless current_user.user_status == "suspended" %>
-	<li>
-		<%= link_to 'Top', tweets_path %>
-	</li>
-	<% end %>
-	<li>
-		<%= link_to 'Log out', destroy_user_session_path, method: :delete %>
-	</li>
-	<li>
-		<%= link_to 'New Tweet', new_tweet_path %>
-	</li>
-	<li>
-		<%= link_to 'My Page', user_path(current_user.id) %>
-	</li>
-	<li>
-		<%= link_to 'Time Line', root_path %>
-	</li>
-	<li>
-		<%= link_to 'Like Notification', '/users/:id/like_notification' %>
-	</li>
-	<li>
-		<%= link_to 'Reply Notification', '/users/:id/reply_notification' %>
-	</li>
-		<% if current_user.try(:admin?) %>
+		<% unless current_user.user_status == "suspended" %>
 			<li>
-				<%= link_to 'Admin', '/admin' %>
+				<%= link_to 'Top', tweets_path %>
 			</li>
 		<% end %>
+		<li>
+			<%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+		</li>
+		<li>
+			<%= link_to 'New Tweet', new_tweet_path %>
+		</li>
+		<li>
+			<%= link_to 'My Page', user_path(current_user.id) %>
+		</li>
+		<li>
+			<%= link_to 'Time Line', root_path %>
+		</li>
+		<li>
+			<%= link_to 'Like Notification', '/users/:id/like_notification' %>
+		</li>
+		<li>
+			<%= link_to 'Reply Notification', '/users/:id/reply_notification' %>
+		</li>
+			<% if current_user.try(:admin?) %>
+				<li>
+					<%= link_to 'Admin', '/admin' %>
+				</li>
+			<% end %>
 	<% else %>
-	<li>
-		<%= link_to 'Sign up', new_user_registration_path %>
-	</li>
-	<li>
-		<%= link_to 'Log in', new_user_session_path %>
-	</li>
+		<li>
+			<%= link_to 'Top', tweets_path %>
+		</li>
+		<li>
+			<%= link_to 'Sign up', new_user_registration_path %>
+		</li>
+		<li>
+			<%= link_to 'Log in', new_user_session_path %>
+		</li>
 	<% end %>
 </ul>
 

@@ -1,6 +1,4 @@
-<% if user_signed_in? == false %>
-	<%= "You have to log in or sign up!" %>
-<% elsif current_user.user_status == "normal" %>
+<% if current_user.user_status == "normal" %>
 	<h1><%= @user.username %></h1>
 	<div class = "profile">
 		<% unless current_user == @user %>
