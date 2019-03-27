@@ -1,5 +1,6 @@
 class RelationshipsController < ApplicationController
 	before_action :find_user
+	before_action :authenticate_user!
 	
 	def create
 		unless current_user == @user
