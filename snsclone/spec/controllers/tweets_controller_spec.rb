@@ -107,10 +107,5 @@ RSpec.describe do
 		      end
     		end
 	 	end
-
-	 	describe "GET #timeline" do
-	 		before do
-	 		end
-	 	end
 	end
 end
