@@ -1,14 +1,14 @@
 <h1>Like Notifications</h1>
 <% if current_user.user_status == "normal" %>
-<div class = "notification">
-	<% @likes.each do |like| %>
-		<% unless like.user == @user %>
-			<p><%= like.created_at %></p>
-			<p><%= "#{like.user.username} liked your tweet" %></p>
-			<p><%= link_to"#{like.tweet.body}", tweet_path(like.tweet.id) %></p>	
-		<% end %>
+	<% @likes_of_notification.each do |like| %>
+		<div class = "notification">
+			<% unless like.user == @user %>
+				<p><%= like.created_at %></p>
+				<p><%= "#{like.user.username} liked your tweet" %></p>
+				<p><%= link_to"#{like.tweet.body}", tweet_path(like.tweet.id) %></p>	
+			<% end %>
+		</div>
 	<% end %>
-</div>
 <% else %>
 	<h2>Your account is suspended!</h2>
 <% end %>

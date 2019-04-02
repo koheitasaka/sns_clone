@@ -2,17 +2,16 @@ require 'rails_helper'
 
 RSpec.describe do
 	before do
-		@user = User.create(
-	  		email:"test@test.com",
-	  		username:"testuser",
-	  		password:"password",
-	  		user_status: "normal"
-	  	)
+		@user = create(:user)
+	  	@tweet = create(:tweet)
 	end
 
 	describe Tweet do
+		it do 
+			expect(@tweet).to be_valid
+		end
 	  context " when user doesn't signed in" do
-		  it "needs to be user" do
+		  it "needs user" do
 		  	tweet = Tweet.create(body:"body")
 		  	expect(tweet).not_to be_valid
 		  end

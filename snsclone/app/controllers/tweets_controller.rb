@@ -1,4 +1,4 @@
-class TweetsController < ApplicationController
+class TweetsController < ApplicationController			
 	before_action :tweet_find, only: [:show, :destroy]
 	before_action :authenticate_user!, except: [:index]
 

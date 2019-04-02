@@ -2,56 +2,33 @@ require 'rails_helper'
 
 RSpec.describe do
 	before do 
-		@user = User.create(
-	  		email:"test@test.com",
-	  		username:"testuser",
-	  		password:"password",
-	  	)
+		@user = create(:user)
 	end
 	describe User do
 	  it "is valid with email,username,and password,user_status " do
 	  	expect(@user).to be_valid
 	  end
 
-	  it "returns error message when email is blank" do
-	  	@user = User.create(
-	  		email:nil,
-	  		username:"testuser",
-	  		password:"password",
-	  		user_status: "normal"
-	  	)
-	  	expect(@user.errors.messages[:email][0]).to eq("can't be blank")
+	  it "returns error when email is blank" do
+	  	@user.email = nil
+	  	expect(@user).not_to be_valid
 	  end
 
-	  it "returns error message when password is blank" do
-	  	@user = User.create(
-	  		email:"test@test.com",
-	  		username:"testuser",
-	  		password:nil,
-	  		user_status: "normal"
-	  	)
-	  	expect(@user.errors.messages[:password][0]).to eq("can't be blank")
+	  it "returns error when password is blank" do
+	  	@user.password = nil
+	  	expect(@user).not_to be_valid
 	  end
 
-	  it "returns error message when username is blank" do
-	  	@user = User.create(
-	  		email:"test@test.com",
-	  		username:nil,
-	  		password:"password",
-	  		user_status: "normal"
-	  	)
-	  	expect(@user.errors.messages[:username][0]).to eq("can't be blank")
+	  it "returns error when username is blank" do
+	  	@user.username = nil
+	  	expect(@user).not_to be_valid
 	  end
 
 
-	  it "returns error message when email is duplicated" do
-	  	@user = User.create(
-	  		email:"test@test.com",
-	  		username:"testuser",
-	  		password:"password",
-	  		user_status: "normal"
-	  	)
-	  	expect(@user.errors.messages[:email][0]).to eq("has already been taken")
+	  it "returns error when email is duplicated" do
+	  	@other_user = build(:user)
+	    @other_user.email = @user.email
+	  	expect(@other_user).not_to be_valid 
 	  end
 
 	  it "likes tweet" do
