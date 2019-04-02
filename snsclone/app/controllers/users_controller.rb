@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 	before_action :current_user_find, only: [:timeline, :like_notification, :reply_notification]
 	
 	def show
-		@tweets = Tweet.where(user_id: @user.id).order(created_at: :desc)
+			@tweets = Tweet.where(user_id: @user.id).order(created_at: :desc)
 	end
 
 	def edit
@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 	def timeline
 		@following_ids = @user.followings.ids
 		@tweets = Tweet.where(user_id: @following_ids).or(Tweet.where(user_id: @user.id)).order(created_at: :desc)
+		# binding.pry
 		@private_tweets = @tweets.where(status:"only_me")
 		@followings_private_tweets = @private_tweets.where(user_id: @following_ids)
 		@displayed_tweets = @tweets.where.not(id: @followings_private_tweets.ids)
@@ -29,10 +30,12 @@ class UsersController < ApplicationController
 	def like_notification
 		@tweets = Tweet.where(user_id: @user.id)
 		@likes = Like.where(tweet_id: @tweets.ids).order(created_at: :desc)
+		@likes_of_notification = @likes.where.not(user_id: @user.id)
 	end
 
 	def reply_notification
-		@tweets = Tweet.where(tweet_id: @user.tweets.ids)
+		@tweets = Tweet.where(tweet_id: @user.tweets.ids).order(created_at: :desc)
+		@replies = @tweets.where.not(user_id: @user.id) 
 	end
 	
 	private

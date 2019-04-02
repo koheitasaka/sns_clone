@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'infomations/index'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   resources :tweets do
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
     resources :account_suspensions
   end
 
+  get "informations" => "infomations#index"
 
   root "users#timeline"
   get "users/:id/like_notification" => "users#like_notification"

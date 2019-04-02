@@ -1,14 +1,14 @@
 <h1>Reply_notification</h1>
 <% if current_user.user_status == "normal" %>
-<div class = "notification">
-	<% @tweets.each do |tweet| %>
-		<% unless tweet.user == @user %>
-			<p><%= tweet.created_at %></p>
-			<p><%= "#{tweet.user.username} replyied your tweet" %></p>
-			<p><%= link_to"#{tweet.original.body}", tweet_path(tweet.original.id) %></p>	
-		<% end %>
+	<% @replies.each do |reply| %>
+		<div class = "notification">
+			<% unless reply.user == @user %>
+				<p><%= reply.created_at %></p>
+				<p><%= "#{reply.user.username} replyied your tweet" %></p>
+				<p><%= link_to"#{reply.original.body}", tweet_path(reply.original.id) %></p>	
+			<% end %>
+		</div>
 	<% end %>
-</div>
 <% else %>
 	<h2>Your account is suspended!</h2>
 <% end %>

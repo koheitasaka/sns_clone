@@ -11,7 +11,7 @@ RSpec.describe do
 			expect(@tweet).to be_valid
 		end
 	  context " when user doesn't signed in" do
-		  it "needs to be user" do
+		  it "needs user" do
 		  	tweet = Tweet.create(body:"body")
 		  	expect(tweet).not_to be_valid
 		  end
