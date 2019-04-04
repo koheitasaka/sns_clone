@@ -26,24 +26,24 @@ RSpec.describe do
 			end
 		end	
 
-		describe "GET #new" do
-		    before do
-		    	@tweet = build(:tweet)
-		    	get :new
-		    end
+		# describe "GET #new" do
+		#     before do
+		#     	@tweet = build(:tweet)
+		#     	get :new
+		#     end
 		    
-		    it "httpリクエストOK" do
-		      expect(response.status).to eq 200
-		    end
+		#     it "httpリクエストOK" do
+		#       expect(response.status).to eq 200
+		#     end
 		    
-		    it "@tweetに値が入っている" do
-		      expect(assigns(:tweet)).to be_a_new(Tweet)
-		    end
+		#     it "@tweetに値が入っている" do
+		#       expect(assigns(:tweet)).to be_a_new(Tweet)
+		#     end
 		    
-		    it "newテンプレートを表示する" do
-		      expect(response).to render_template :new
-		    end
-  		end
+		#     it "newテンプレートを表示する" do
+		#       expect(response).to render_template :new
+		#     end
+  # 		end
 
   		describe "GET #show" do
 		    before do
@@ -68,10 +68,6 @@ RSpec.describe do
 		    context "有効なパラメータの場合" do
 		      before do
 		        @tweet = attributes_for(:tweet)
-		      end
-		      it "リクエストは302 リダイレクトとなること" do
-		        post :create, params:{tweet: @tweet}
-		        expect(response.status).to eq 302
 		      end
 	    	end
 	    end

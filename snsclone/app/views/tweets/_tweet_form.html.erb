@@ -1,0 +1,34 @@
+<%= form_with(model: Tweet.new) do |f| %>
+		<div>
+			<% if tweet.errors.messages[:body].any? %>
+				<%= tweet.errors.messages[:body][0] %>
+			<% end %>
+			<%= f.text_area :body, 
+			placeholder: "How are you doing now?",
+			class: "form" 
+	        %>
+		</div>
+	 	<p>
+	 		<%= f.radio_button :status, :open %>Public
+	 	</p>
+	 	<p>
+	 		<%= f.radio_button :status, :only_followers %>Followers
+	 	</p>
+	 	<p>
+	 		<%= f.radio_button :status, :only_me %>Private
+	 	</p>
+		<p>
+	      <%= f.label :images, class: "images" %><br>
+	      <%= f.file_field :images, multiple: true %>
+	    </p>
+	    <p>
+	      <%= f.label :images, class: "images" %><br>
+	      <%= f.file_field :images, multiple: true %>
+	    </p>
+	    <p>
+	      <%= f.label :images, class: "images" %><br>
+	      <%= f.file_field :images, multiple: true %>
+	    </p>
+
+		<p><%= f.submit %></p>
+<% end %>
