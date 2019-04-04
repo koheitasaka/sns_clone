@@ -13,9 +13,9 @@
 
 	<div>
 		<% if current_user.already_liked?(@tweet) %>
-	 		<%= button_to 'Liked', tweet_like_path(@tweet), method: :delete %>
+	 		<%= button_to 'Liked', tweet_like_path(@tweet), method: :delete, remote: true %>
 		<% else %>
-	  		<%= button_to 'Like', tweet_likes_path(@tweet) %>
+	  		<%= button_to 'Like', tweet_likes_path(@tweet), remote: true %>
 		<% end %>	
 	</div>
 	

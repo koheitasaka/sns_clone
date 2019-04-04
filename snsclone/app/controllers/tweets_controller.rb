@@ -3,21 +3,28 @@ class TweetsController < ApplicationController
 	before_action :authenticate_user!, except: [:index]
 
 	def index
+		@tweet = Tweet.new
 		@tweets = Tweet.all.order(created_at: :desc)
 	end
 
 	def new
 		@tweet = Tweet.new
+		respond_to do |format|
+			format.js
+		end
 	end
 
 	def create
 		@tweet = Tweet.new(tweet_params)
-		@tweet.user_id = current_user.id 
+		@tweet.user_id = current_user.id
 		if @tweet.save
-	    	redirect_to root_path
-	    else
-	    	render "new"
-	    end
+			@tweets = Tweet.all.order(created_at: :desc) 
+			respond_to do |format|
+				format.js
+			end
+		else
+		    render "new"
+		end
 	end
 
 	def destroy
