@@ -4,7 +4,10 @@
 		<div class = "notification">
 			<% unless reply.user == @user %>
 				<p><%= reply.created_at %></p>
-				<p><%= "#{reply.user.username} replyied your tweet" %></p>
+				<p>
+					<%= link_to "#{reply.user.username}", user_path(reply.user.id)  %>
+					replied your tweet
+				</p>
 				<p><%= link_to"#{reply.original.body}", tweet_path(reply.original.id) %></p>	
 			<% end %>
 		</div>

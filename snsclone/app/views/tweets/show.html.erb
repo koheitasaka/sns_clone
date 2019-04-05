@@ -18,28 +18,38 @@
 	  		<%= button_to 'Like', tweet_likes_path(@tweet), remote: true %>
 		<% end %>	
 	</div>
-	
 
 	<div>
-		<%= form_for :tweet, url: tweets_path do |f| %>
+		<%= form_with(model: Tweet.new) do |f| %>
 			<%= f.hidden_field :tweet_id, :value => @tweet.id  %>
-		<p>
-			<%= f.text_area :body, 
-			placeholder: "Send reply"
-			%>
-		</p>
-		<p><%= f.submit %></p>
-		<% end %>
+			<div>
+				<% if @new_tweet.errors.messages[:body].any? %>
+					<%= @new_tweet.errors.messages[:body][0] %>
+				<% end %>
+				<%= f.text_area :body, 
+				placeholder: "How are you doing now?",
+				class: "form" 
+		        %>
+			</div>
+			<p>
+		      <%= f.label :images, class: "images" %><br>
+		      <%= f.file_field :images, multiple: true %>
+		    </p>
+		    <p>
+		      <%= f.label :images, class: "images" %><br>
+		      <%= f.file_field :images, multiple: true %>
+		    </p>
+		    <p>
+		      <%= f.label :images, class: "images" %><br>
+		      <%= f.file_field :images, multiple: true %>
+		    </p>
+
+			<p><%= f.submit %></p>
+		<% end %>	
 	</div>
 
-
-	<div>
-		<% @tweet.replies.each do |reply| %>
-			<p>
-			    <%= link_to"#{reply.body}", tweet_path(reply.id) %>
-				<%= reply.created_at %>		
-			</p>
-		<% end %>
+	<div id="reply">
+		<%= render partial: 'tweets/reply_area', locals: { replies: @replies } %>
 	</div>
 <% else %>
 	<h2>Your account is suspended!</h2>

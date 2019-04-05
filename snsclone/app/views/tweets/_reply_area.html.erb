@@ -1,0 +1,7 @@
+<% replies.each do |reply| %>
+	<div class="tweet">
+		<p><%= link_to"#{reply.user.username}", user_path(reply.user.id) %></p>
+		<p><%= link_to"#{reply.body}", tweet_path(reply.id) %></p>
+		<p><%= reply.created_at %></p>
+	</div>
+<% end %>
