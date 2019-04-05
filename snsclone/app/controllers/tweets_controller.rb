@@ -18,8 +18,12 @@ class TweetsController < ApplicationController
 		@tweet = Tweet.new(tweet_params)
 		@tweet.user_id = current_user.id
 		if @tweet.save
-			@tweets = Tweet.all.order(created_at: :desc) 
+			@tweets = Tweet.all.order(created_at: :desc)
+			if @tweet.tweet_id 
+				@replies = @tweet.original.replies.order(created_at: :desc)
+			end
 			respond_to do |format|
+				format.html
 				format.js
 			end
 		else
@@ -33,6 +37,8 @@ class TweetsController < ApplicationController
 	end
 
 	def show
+		@new_tweet = Tweet.new
+		@replies = @tweet.replies.order(created_at: :desc)
 	end
 
 	private

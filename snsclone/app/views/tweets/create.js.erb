@@ -1,4 +1,5 @@
 $("#tweet_container").html("<%= j (render 'tweets/tweet_area', { tweets: @tweets }) %>");
 $("#form").fadeOut(800);
-
-  
+<% if @replies %>
+	$("#reply").html("<%= j (render 'tweets/reply_area', { replies: @replies }) %>");
+<% end %>

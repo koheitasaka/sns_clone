@@ -4,7 +4,9 @@
 		<div class = "notification">
 			<% unless like.user == @user %>
 				<p><%= like.created_at %></p>
-				<p><%= "#{like.user.username} liked your tweet" %></p>
+				<p>
+					<%= link_to"#{like.user.username}", user_path(like.user.id) %> liked your tweet 
+				</p>
 				<p><%= link_to"#{like.tweet.body}", tweet_path(like.tweet.id) %></p>	
 			<% end %>
 		</div>
