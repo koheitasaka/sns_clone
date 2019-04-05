@@ -3,9 +3,9 @@
 	<div class = "profile">
 		<% unless current_user == @user %>
 		  <% if current_user.already_followed?(@user) %>
-		    <%= button_to 'Remove', user_relationship_path(@user), method: :delete %>
+		    <%= button_to 'Remove', user_relationship_path(@user), method: :delete, remote: true %>
 		  <% else %>
-			<%= button_to 'Follow', user_relationships_path(@user) %>
+			<%= button_to 'Follow', user_relationships_path(@user), remote: true %>
 		  <% end %>
 
 		  <% if current_user.already_reported?(@user) %>
